@@ -1,0 +1,103 @@
+========================================================================
+Naive Bayes drone object classifier (baseline)
+========================================================================
+Total examples: 30  |  training: 21  |  held-out test: 9
+Confidence threshold: 0.70 (below this -> 'unable to identify')
+
+What the model learned (class prior, and mean of each feature):
+  class    prior       red   green    blue   width  height  aspect
+  person   0.33      0.42    0.30    0.28   19.86   40.57    0.50
+  car      0.33      0.33    0.33    0.34   78.86   58.71    1.57
+  other    0.33      0.32    0.41    0.27   41.71   42.43    1.04
+
+------------------------------------------------------------------------
+Held-out test examples
+------------------------------------------------------------------------
+
+Test #1: person walking  (actual: person)
+  features: color r/g/b = 0.42/0.30/0.28, box = 18x40 px, aspect = 0.45
+  posteriors: P(person) = 1.000   P(car) = 0.000   P(other) = 0.000
+  Naive Bayes says: person  [correct]
+  Tall-and-narrow rule says: person  [correct]
+
+Test #2: person, far away  (actual: person)
+  features: color r/g/b = 0.38/0.32/0.30, box = 15x35 px, aspect = 0.43
+  posteriors: P(person) = 0.999   P(car) = 0.000   P(other) = 0.001
+  Naive Bayes says: person  [correct]
+  Tall-and-narrow rule says: person  [correct]
+
+Test #3: person in dark clothes  (actual: person)
+  features: color r/g/b = 0.37/0.31/0.32, box = 14x33 px, aspect = 0.42
+  posteriors: P(person) = 0.989   P(car) = 0.000   P(other) = 0.011
+  Naive Bayes says: person  [correct]
+  Tall-and-narrow rule says: person  [correct]
+
+Test #4: small hatchback  (actual: car)
+  features: color r/g/b = 0.33/0.32/0.35, box = 80x40 px, aspect = 2.00
+  posteriors: P(person) = 0.000   P(car) = 1.000   P(other) = 0.000
+  Naive Bayes says: car  [correct]
+  Tall-and-narrow rule says: car  [correct]
+
+Test #5: dark sedan  (actual: car)
+  features: color r/g/b = 0.35/0.32/0.33, box = 87x47 px, aspect = 1.85
+  posteriors: P(person) = 0.000   P(car) = 0.999   P(other) = 0.001
+  Naive Bayes says: car  [correct]
+  Tall-and-narrow rule says: car  [correct]
+
+Test #6: red car  (actual: car)
+  features: color r/g/b = 0.50/0.25/0.25, box = 88x44 px, aspect = 2.00
+  posteriors: P(person) = 0.000   P(car) = 0.000   P(other) = 1.000
+  Naive Bayes says: other  [WRONG]
+  Tall-and-narrow rule says: car  [correct]
+
+Test #7: sign post (tall and narrow!)  (actual: other)
+  features: color r/g/b = 0.33/0.33/0.34, box = 10x50 px, aspect = 0.20
+  posteriors: P(person) = 0.000   P(car) = 0.467   P(other) = 0.533
+  Naive Bayes says: UNABLE TO IDENTIFY (best guess was other at 0.533, below 0.70)
+  Tall-and-narrow rule says: person  [WRONG]
+
+Test #8: tree from above  (actual: other)
+  features: color r/g/b = 0.28/0.48/0.24, box = 60x58 px, aspect = 1.03
+  posteriors: P(person) = 0.000   P(car) = 0.000   P(other) = 1.000
+  Naive Bayes says: other  [correct]
+  Tall-and-narrow rule says: car  [WRONG]
+
+Test #9: dog  (actual: other)
+  features: color r/g/b = 0.40/0.33/0.27, box = 30x18 px, aspect = 1.67
+  posteriors: P(person) = 0.000   P(car) = 0.000   P(other) = 1.000
+  Naive Bayes says: other  [correct]
+  Tall-and-narrow rule says: car  [WRONG]
+
+========================================================================
+Results on the held-out test set
+========================================================================
+Naive Bayes:
+  accuracy (an 'unable to identify' counts as wrong): 7/9 = 77.8%
+  answered (confident) on: 8/9 = 88.9%
+  accuracy when it did answer: 7/8 = 87.5%
+Tall-and-narrow rule (everything not tall/narrow is called 'car'):
+  accuracy: 6/9 = 66.7%
+Person vs. not-person only (the question the rule actually answers):
+  Naive Bayes: 8/9 = 88.9%   |   rule: 8/9 = 88.9%
+
+Naive Bayes confusion matrix:
+  (rows = actual class, columns = predicted class)
+            person     car   other  unable
+person           3       0       0       0
+car              0       2       1       0
+other            0       0       2       0
+
+Tall-and-narrow rule confusion matrix:
+  (rows = actual class, columns = predicted class)
+            person     car   other
+person           3       0       0
+car              0       3       0
+other            1       2       0
+
+Where the tall-and-narrow rule goes wrong on person vs. not-person (all 30 examples):
+  - person crouching (really: person)
+  - car parked vertically (really: car)
+  - van parked vertically (really: car)
+  - sign post (tall and narrow!) (really: other)
+  - light pole (really: other)
+

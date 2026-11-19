@@ -1,0 +1,251 @@
+Loaded 17316 crops from visdrone_features.csv
+Split by image: 437 training images (14083 crops), 109 test images (3233 crops). No image appears in both.
+
+========================================================================
+[RGB] natural class mix
+========================================================================
+training crops: 14083 {'car': 8696, 'other': 3352, 'person': 2035}
+test crops:     3233 {'car': 1869, 'other': 780, 'person': 584}
+learned priors: P(person) = 0.14, P(car) = 0.62, P(other) = 0.24
+
+A few individual test crops (3 per class, picked at random):
+  pedestrian   76x174  actual=person P(person)=0.000 P(car)=0.744 P(other)=0.256  -> car  [WRONG]
+  pedestrian   22x53   actual=person P(person)=0.880 P(car)=0.072 P(other)=0.048  -> person  [ok]
+  pedestrian   24x51   actual=person P(person)=0.898 P(car)=0.052 P(other)=0.050  -> person  [ok]
+         car  108x48   actual=car    P(person)=0.000 P(car)=0.963 P(other)=0.037  -> car  [ok]
+         car   28x26   actual=car    P(person)=0.179 P(car)=0.560 P(other)=0.261  -> unable to identify
+         car  124x126  actual=car    P(person)=0.000 P(car)=0.963 P(other)=0.037  -> car  [ok]
+       truck   47x94   actual=other  P(person)=0.201 P(car)=0.524 P(other)=0.276  -> unable to identify
+       motor   46x30   actual=other  P(person)=0.000 P(car)=0.630 P(other)=0.370  -> unable to identify
+         bus   25x37   actual=other  P(person)=0.861 P(car)=0.062 P(other)=0.077  -> person  [WRONG]
+
+Naive Bayes accuracy ('unable to identify' counts as wrong): 1457/3233 =  45.1%
+  answered (top posterior >= 0.7): 1887/3233 =  58.4%
+  accuracy when it answered: 1457/1887 =  77.2%
+  accuracy if forced to answer every crop (no threshold): 2181/3233 =  67.5%
+Tall-and-narrow rule accuracy:2206/3233 =  68.2%
+Reference - always guess the most common class ('car'): 1869/3233 =  57.8%
+
+Naive Bayes confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other    unable     total
+person           446        14         4       120       584
+car               63      1000        10       796      1869
+other            150       189        11       430       780
+                                                        3233
+
+Tall-and-narrow rule confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other     total
+person           462       122         0       584
+car              125      1744         0      1869
+other            159       621         0       780
+                                              3233
+
+========================================================================
+[RGB] balanced (equal crops per class)
+========================================================================
+training crops: 6105 {'person': 2035, 'car': 2035, 'other': 2035}
+test crops:     1752 {'person': 584, 'car': 584, 'other': 584}
+learned priors: P(person) = 0.33, P(car) = 0.33, P(other) = 0.33
+
+A few individual test crops (3 per class, picked at random):
+      people   21x24   actual=person P(person)=0.836 P(car)=0.022 P(other)=0.142  -> person  [ok]
+  pedestrian   27x56   actual=person P(person)=0.940 P(car)=0.025 P(other)=0.035  -> person  [ok]
+  pedestrian   27x71   actual=person P(person)=0.920 P(car)=0.040 P(other)=0.040  -> person  [ok]
+         car  114x52   actual=car    P(person)=0.000 P(car)=0.913 P(other)=0.087  -> car  [ok]
+         car  117x86   actual=car    P(person)=0.000 P(car)=0.808 P(other)=0.192  -> car  [ok]
+         car   58x80   actual=car    P(person)=0.018 P(car)=0.620 P(other)=0.362  -> unable to identify
+       motor   51x31   actual=other  P(person)=0.000 P(car)=0.657 P(other)=0.343  -> unable to identify
+       truck   27x57   actual=other  P(person)=0.936 P(car)=0.025 P(other)=0.039  -> person  [WRONG]
+    tricycle   57x28   actual=other  P(person)=0.000 P(car)=0.770 P(other)=0.230  -> car  [WRONG]
+
+Naive Bayes accuracy ('unable to identify' counts as wrong): 702/1752 =  40.1%
+  answered (top posterior >= 0.7): 995/1752 =  56.8%
+  accuracy when it answered: 702/995 =  70.6%
+  accuracy if forced to answer every crop (no threshold): 1065/1752 =  60.8%
+Tall-and-narrow rule accuracy:991/1752 =  56.6%
+Reference - always guess the most common class ('person'): 584/1752 =  33.3%
+
+Naive Bayes confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other    unable     total
+person           509         2        13        60       584
+car               54       159        15       356       584
+other            156        53        34       341       584
+                                                        1752
+
+Tall-and-narrow rule confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other     total
+person           462       122         0       584
+car               55       529         0       584
+other            119       465         0       584
+                                              1752
+
+========================================================================
+[HSV] natural class mix
+========================================================================
+training crops: 14083 {'car': 8696, 'other': 3352, 'person': 2035}
+test crops:     3233 {'car': 1869, 'other': 780, 'person': 584}
+learned priors: P(person) = 0.14, P(car) = 0.62, P(other) = 0.24
+
+A few individual test crops (3 per class, picked at random):
+  pedestrian   76x174  actual=person P(person)=0.000 P(car)=0.662 P(other)=0.338  -> unable to identify
+  pedestrian   22x53   actual=person P(person)=0.962 P(car)=0.021 P(other)=0.017  -> person  [ok]
+  pedestrian   24x51   actual=person P(person)=0.957 P(car)=0.022 P(other)=0.021  -> person  [ok]
+         car  108x48   actual=car    P(person)=0.000 P(car)=0.954 P(other)=0.046  -> car  [ok]
+         car   28x26   actual=car    P(person)=0.207 P(car)=0.586 P(other)=0.207  -> unable to identify
+         car  124x126  actual=car    P(person)=0.000 P(car)=0.974 P(other)=0.026  -> car  [ok]
+       truck   47x94   actual=other  P(person)=0.417 P(car)=0.373 P(other)=0.210  -> unable to identify
+       motor   46x30   actual=other  P(person)=0.000 P(car)=0.593 P(other)=0.407  -> unable to identify
+         bus   25x37   actual=other  P(person)=0.969 P(car)=0.007 P(other)=0.024  -> person  [WRONG]
+
+Naive Bayes accuracy ('unable to identify' counts as wrong): 1596/3233 =  49.4%
+  answered (top posterior >= 0.7): 2215/3233 =  68.5%
+  accuracy when it answered: 1596/2215 =  72.1%
+  accuracy if forced to answer every crop (no threshold): 2025/3233 =  62.6%
+Tall-and-narrow rule accuracy:2206/3233 =  68.2%
+Reference - always guess the most common class ('car'): 1869/3233 =  57.8%
+
+Naive Bayes confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other    unable     total
+person           470        29         9        76       584
+car              123      1098        42       606      1869
+other            193       223        28       336       780
+                                                        3233
+
+Tall-and-narrow rule confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other     total
+person           462       122         0       584
+car              125      1744         0      1869
+other            159       621         0       780
+                                              3233
+
+========================================================================
+[HSV] balanced (equal crops per class)
+========================================================================
+training crops: 6105 {'person': 2035, 'car': 2035, 'other': 2035}
+test crops:     1752 {'person': 584, 'car': 584, 'other': 584}
+learned priors: P(person) = 0.33, P(car) = 0.33, P(other) = 0.33
+
+A few individual test crops (3 per class, picked at random):
+      people   21x24   actual=person P(person)=0.970 P(car)=0.000 P(other)=0.030  -> person  [ok]
+  pedestrian   27x56   actual=person P(person)=0.979 P(car)=0.007 P(other)=0.014  -> person  [ok]
+  pedestrian   27x71   actual=person P(person)=0.973 P(car)=0.016 P(other)=0.011  -> person  [ok]
+         car  114x52   actual=car    P(person)=0.000 P(car)=0.914 P(other)=0.086  -> car  [ok]
+         car  117x86   actual=car    P(person)=0.000 P(car)=0.803 P(other)=0.197  -> car  [ok]
+         car   58x80   actual=car    P(person)=0.006 P(car)=0.854 P(other)=0.141  -> car  [ok]
+       motor   51x31   actual=other  P(person)=0.000 P(car)=0.872 P(other)=0.128  -> car  [WRONG]
+       truck   27x57   actual=other  P(person)=0.977 P(car)=0.008 P(other)=0.015  -> person  [WRONG]
+    tricycle   57x28   actual=other  P(person)=0.000 P(car)=0.854 P(other)=0.146  -> car  [WRONG]
+
+Naive Bayes accuracy ('unable to identify' counts as wrong): 764/1752 =  43.6%
+  answered (top posterior >= 0.7): 1172/1752 =  66.9%
+  accuracy when it answered: 764/1172 =  65.2%
+  accuracy if forced to answer every crop (no threshold): 1038/1752 =  59.2%
+Tall-and-narrow rule accuracy:991/1752 =  56.6%
+Reference - always guess the most common class ('person'): 584/1752 =  33.3%
+
+Naive Bayes confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other    unable     total
+person           493        10        18        63       584
+car               80       221        30       253       584
+other            172        98        50       264       584
+                                                        1752
+
+Tall-and-narrow rule confusion matrix:
+  (rows = actual class, columns = predicted)
+              person       car     other     total
+person           462       122         0       584
+car               55       529         0       584
+other            119       465         0       584
+                                              1752
+
+========================================================================
+Summary
+========================================================================
+setting                                        NB  answered  NB|ans  forced   rule   base
+[RGB] natural class mix                     45.1%     58.4%   77.2%   67.5%  68.2%  57.8%
+[RGB] balanced (equal crops per class)      40.1%     56.8%   70.6%   60.8%  56.6%  33.3%
+[HSV] natural class mix                     49.4%     68.5%   72.1%   62.6%  68.2%  57.8%
+[HSV] balanced (equal crops per class)      43.6%     66.9%   65.2%   59.2%  56.6%  33.3%
+NB     = accuracy, 'unable to identify' counted as wrong
+NB|ans = accuracy on only the crops NB answered
+forced = NB accuracy if it must always answer (no threshold)
+base   = always guess the most common training class (for balanced data this is just chance, 33.3%)
+
+########################################################################
+# Analysis 1: threshold sweep (natural class mix, fixed 80/20 split)
+########################################################################
+
+[RGB]  threshold   accuracy when it answers   refuses
+              0.50                     69.5%     12.4%
+              0.55                     71.1%     18.8%
+              0.60                     72.9%     25.5%
+              0.65                     74.8%     33.2%
+              0.70                     77.2%     41.6%
+              0.75                     79.2%     49.7%
+              0.80                     81.5%     58.6%
+              0.85                     85.7%     70.3%
+              0.90                     89.3%     81.6%
+              0.95                     91.9%     88.6%
+
+[HSV]  threshold   accuracy when it answers   refuses
+              0.50                     65.1%      8.8%
+              0.55                     67.2%     14.7%
+              0.60                     68.6%     20.4%
+              0.65                     70.4%     25.8%
+              0.70                     72.1%     31.5%
+              0.75                     73.5%     38.1%
+              0.80                     75.1%     45.3%
+              0.85                     76.8%     53.1%
+              0.90                     80.6%     63.6%
+              0.95                     84.1%     78.4%
+
+(For reference: the tall-and-narrow rule never refuses and scores 68.2% on this test set.)
+
+########################################################################
+# Analysis 2: learning curve (natural class mix, same test set)
+########################################################################
+[RGB]   5% of training images ( 22 images, ~  681 crops): forced accuracy  63.0% +/-  4.2 (range 57.6-68.5); accuracy when answering at 0.7:  74.7% +/-  3.3
+[HSV]   5% of training images ( 22 images, ~  681 crops): forced accuracy  60.8% +/-  3.8 (range 54.9-65.6); accuracy when answering at 0.7:  67.6% +/-  3.2
+[RGB]  10% of training images ( 44 images, ~ 1398 crops): forced accuracy  65.7% +/-  3.2 (range 60.4-68.7); accuracy when answering at 0.7:  74.5% +/-  3.3
+[HSV]  10% of training images ( 44 images, ~ 1398 crops): forced accuracy  61.5% +/-  3.7 (range 54.5-66.2); accuracy when answering at 0.7:  67.7% +/-  4.0
+[RGB]  25% of training images (109 images, ~ 3551 crops): forced accuracy  65.6% +/-  2.1 (range 62.8-68.8); accuracy when answering at 0.7:  76.0% +/-  2.2
+[HSV]  25% of training images (109 images, ~ 3551 crops): forced accuracy  62.6% +/-  2.6 (range 58.6-67.5); accuracy when answering at 0.7:  70.1% +/-  2.7
+[RGB]  50% of training images (218 images, ~ 7033 crops): forced accuracy  66.8% +/-  1.6 (range 64.0-68.5); accuracy when answering at 0.7:  76.9% +/-  1.1
+[HSV]  50% of training images (218 images, ~ 7033 crops): forced accuracy  62.9% +/-  1.4 (range 59.6-65.1); accuracy when answering at 0.7:  71.3% +/-  1.8
+[RGB] 100% of training images (437 images, ~14083 crops): forced accuracy  67.5% +/-  0.0 (range 67.5-67.5); accuracy when answering at 0.7:  77.2% +/-  0.0
+[HSV] 100% of training images (437 images, ~14083 crops): forced accuracy  62.6% +/-  0.0 (range 62.6-62.6); accuracy when answering at 0.7:  72.1% +/-  0.0
+(+/- is the standard deviation over the 10 random picks. At 100% every pick is the same
+ full training set, so the spread there is 0.)
+
+########################################################################
+# Analysis 3: 5-fold cross-validation, split by image
+########################################################################
+fold 1: 110 test images, 3489 test crops | NB RGB  69.7% | NB HSV  64.4% | rule  70.2% | base  63.4%  (natural mix, NB forced)
+fold 2: 109 test images, 3487 test crops | NB RGB  62.2% | NB HSV  59.9% | rule  60.8% | base  60.3%  (natural mix, NB forced)
+fold 3: 109 test images, 3838 test crops | NB RGB  68.6% | NB HSV  62.2% | rule  68.0% | base  62.3%  (natural mix, NB forced)
+fold 4: 109 test images, 3342 test crops | NB RGB  66.0% | NB HSV  62.5% | rule  70.5% | base  62.1%  (natural mix, NB forced)
+fold 5: 109 test images, 3160 test crops | NB RGB  65.8% | NB HSV  63.2% | rule  64.1% | base  56.4%  (natural mix, NB forced)
+
+Natural class mix - mean +/- spread over 5 folds:
+  NB RGB: NB ('unable' wrong) 41.7% +/- 1.6 | answered 54.5% +/- 2.3 | NB when answered 76.5% +/- 3.3 | NB forced 66.5% +/- 2.9
+  NB HSV: NB ('unable' wrong) 47.4% +/- 1.6 | answered 67.5% +/- 2.1 | NB when answered 70.2% +/- 2.2 | NB forced 62.4% +/- 1.7
+  tall-and-narrow rule: 66.7% +/- 4.2
+  always guess the most common class: 60.9% +/- 2.8
+
+Balanced class mix - mean +/- spread over 5 folds:
+  NB RGB: NB ('unable' wrong) 41.0% +/- 2.5 | answered 56.8% +/- 4.0 | NB when answered 72.1% +/- 2.0 | NB forced 61.1% +/- 1.9
+  NB HSV: NB ('unable' wrong) 44.4% +/- 2.7 | answered 67.3% +/- 3.2 | NB when answered 66.0% +/- 2.9 | NB forced 60.3% +/- 2.3
+  tall-and-narrow rule: 55.9% +/- 1.6
+  always guess the most common class: 33.3% +/- 0.0
+
+Saved charts:
+  chart_threshold_sweep.png
+  chart_learning_curve.png
+  chart_cross_validation.png

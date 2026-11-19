@@ -1,0 +1,179 @@
+{
+  "format": "sentinel-gaussian-naive-bayes/1",
+  "description": "Gaussian Naive Bayes over 6 box features, trained from scratch for CS471 on VisDrone2019-DET val crops.",
+  "classes": [
+    "person",
+    "car",
+    "other"
+  ],
+  "unknown_label": "unable to identify",
+  "feature_names": [
+    "red",
+    "green",
+    "blue",
+    "width",
+    "height",
+    "aspect"
+  ],
+  "feature_notes": {
+    "red/green/blue": "share of the crop's summed R, G and B values; the three add up to 1. Computed in RGB order (OpenCV frames are BGR and must be swapped).",
+    "width/height": "bounding-box size in pixels",
+    "aspect": "width / height"
+  },
+  "confidence_threshold": 0.7,
+  "min_box_side_px": 20,
+  "priors": {
+    "person": 0.15124740124740124,
+    "car": 0.6101293601293601,
+    "other": 0.23862323862323861
+  },
+  "means": {
+    "person": [
+      0.3350147766323024,
+      0.32093276059564724,
+      0.34405273004963727,
+      27.726995036273387,
+      48.87972508591065,
+      0.6161390988927071
+    ],
+    "car": [
+      0.3157479602460956,
+      0.33328527212494086,
+      0.35096682442025556,
+      62.34472314245149,
+      47.12219592995741,
+      1.4282455844770467
+    ],
+    "other": [
+      0.3290983785091965,
+      0.33002514520813164,
+      0.3408775895450145,
+      45.161665053242984,
+      41.05517909002904,
+      1.1847882139399806
+    ]
+  },
+  "variances": {
+    "person": [
+      0.002347566476045563,
+      0.0011298313141503986,
+      0.0014921637077507238,
+      102.93028577737232,
+      521.4063113409944,
+      0.053869066933521344
+    ],
+    "car": [
+      0.0011233070552871087,
+      0.0007891873430106618,
+      0.0013216973793208045,
+      1461.1626304131757,
+      798.4175192668656,
+      0.39357473541855953
+    ],
+    "other": [
+      0.0012867707607134588,
+      0.000819265382755294,
+      0.0013443220302332692,
+      1044.9333532779374,
+      783.7940607859335,
+      0.2491190197822243
+    ]
+  },
+  "training": {
+    "dataset": "VisDrone2019-DET-val (548 images)",
+    "crops": 17316,
+    "class_counts": {
+      "person": 2619,
+      "car": 10565,
+      "other": 4132
+    },
+    "class_mapping": {
+      "person": [
+        "pedestrian",
+        "people"
+      ],
+      "car": [
+        "car",
+        "van"
+      ],
+      "other": "every other VisDrone category"
+    },
+    "image_sizes_px": "about 1360x765 to 2000x1500",
+    "cv_accuracy_note": "5-fold CV by image, natural mix: 66.5% when forced to answer; 76.5% on the 54.5% of crops it answers at threshold 0.70.",
+    "box_size_caveat": "width/height were learned in VisDrone pixels. A 640x480 drone camera sees the same object smaller in pixels, so size-based evidence is shifted on the drone. Not corrected."
+  },
+  "golden_examples": [
+    {
+      "features": [
+        0.3134,
+        0.3547,
+        0.3318,
+        54.0,
+        92.0,
+        0.587
+      ],
+      "true_label": "car",
+      "expected_label": "unable to identify",
+      "expected_posteriors": {
+        "person": 0.048013517322432885,
+        "car": 0.6808028725704608,
+        "other": 0.27118361010710634
+      },
+      "source_image": "0000001_02999_d_0000005.jpg"
+    },
+    {
+      "features": [
+        0.3177,
+        0.3321,
+        0.3502,
+        62.0,
+        92.0,
+        0.6739
+      ],
+      "true_label": "car",
+      "expected_label": "car",
+      "expected_posteriors": {
+        "person": 0.00433660124634105,
+        "car": 0.7360201618673009,
+        "other": 0.2596432368863581
+      },
+      "source_image": "0000001_02999_d_0000005.jpg"
+    },
+    {
+      "features": [
+        0.3252,
+        0.3313,
+        0.3435,
+        27.0,
+        54.0,
+        0.5
+      ],
+      "true_label": "other",
+      "expected_label": "person",
+      "expected_posteriors": {
+        "person": 0.7923518161203215,
+        "car": 0.11564088706359596,
+        "other": 0.09200729681608248
+      },
+      "source_image": "0000001_02999_d_0000005.jpg"
+    },
+    {
+      "features": [
+        0.378,
+        0.3375,
+        0.2845,
+        27.0,
+        49.0,
+        0.551
+      ],
+      "true_label": "person",
+      "expected_label": "person",
+      "expected_posteriors": {
+        "person": 0.9054898411218042,
+        "car": 0.024741754730281264,
+        "other": 0.06976840414791453
+      },
+      "source_image": "0000001_02999_d_0000005.jpg"
+    }
+  ]
+}

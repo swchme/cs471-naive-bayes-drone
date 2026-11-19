@@ -1,0 +1,4 @@
+# The core algorithm, demo, and tests need only the Python standard library.
+# These are optional extras:
+Pillow>=10.0       # visdrone_features.py (crop real images) + 2 feature tests (tested: 13.0.0)
+matplotlib>=3.7    # PNG charts from visdrone_nb.py (tested: 3.11.2)
