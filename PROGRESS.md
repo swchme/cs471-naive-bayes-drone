@@ -5,6 +5,34 @@ other / unable to identify)
 **Team:** Sweta Chandra Mohan (GitHub `swchme`). Sole team member.
 **Checkpoint tag:** `checkpoint1`
 
+## Where to find each requirement
+Click any link to open the file.
+
+1. **Implemented the core algorithm** in
+   [`final-project.py`](final-project.py#L143), class `GaussianNaiveBayes`:
+   - training, in [`fit`](final-project.py#L164);
+   - Bayes' rule and normalization, in [`posteriors`](final-project.py#L195);
+   - the "unable to identify" threshold, in [`predict`](final-project.py#L215).
+2. **Demonstrated basic functionality** by running `python final-project.py`.
+   - Saved output: [`demo_output.txt`](demo_output.txt).
+   - Real-data run: [`visdrone_nb.py`](visdrone_nb.py), with output in
+     [`visdrone_results.txt`](visdrone_results.txt) and three charts:
+     [threshold sweep](chart_threshold_sweep.png),
+     [learning curve](chart_learning_curve.png),
+     [cross-validation](chart_cross_validation.png).
+3. **Verified correctness** with 13 tests in
+   [`tests/test_naive_bayes.py`](tests/test_naive_bayes.py).
+   - Run them with `python -m unittest discover -s tests -v`.
+   - Each test's expected result and why it matters:
+     [README, "Correctness verification"](README.md#correctness-verification).
+4. **Documented how to run the project** in [`README.md`](README.md):
+   - [Quick start](README.md#quick-start-no-installs-needed);
+   - [Full setup and dependencies](README.md#full-setup-real-visdrone-data-and-charts);
+   - [`requirements.txt`](requirements.txt).
+5. **Documented team progress** in this file:
+   [Contributions](#contributions), [Remaining work](#remaining-work),
+   [Challenges](#challenges).
+
 ## Completed functionality
 - **Core algorithm:** a Gaussian Naive Bayes classifier written from scratch in
   standard-library Python, with no scikit-learn.
